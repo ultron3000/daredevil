@@ -10,12 +10,27 @@
     a { display: inline-block; margin-top: 30px; padding: 10px 20px; background: #c00; color: #fff; text-decoration: none; border-radius: 8px; }
     a:hover { background: #900; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
   <h1>Episode 7: Art for Art's Sake</h1>
-  <video controls autoplay>
+  <video id="video" controls autoplay>
     <source src="https://f4.megacdn.co:2228/v3-hls-playback/f5ae82f5a9e6c23a9b8e0889781acb3106044fa553337ca390c42f27aa58795888aa5b73746c37ae720dc844d0fa0dea98077ab327f88a5eb1518270901ed58e9bdd438a4d39df57a1352e413ba673019fab51af78eb76fac9110199e68fe3a34ef136acf9303655a4d485d50ac51e3a77c41ee937a1a1b0d295d9f834ca21cdb65a68e84679292f2b54b837b6040685b75bd4cb011aad5d662ded583657cc3e8bab9524118f6029d4d426e3dafdd2306018dba37c02a7b9a89d8400897c0491/1080/index.m3u8" type="application/x-mpegURL">
   </video>
   <br><a href="index.html">← Back to Episodes</a>
+
+  <script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource('https://f4.megacdn.co:2228/v3-hls-playback/f5ae82f5a9e6c23a9b8e0889781acb3106044fa553337ca390c42f27aa58795888aa5b73746c37ae720dc844d0fa0dea98077ab327f88a5eb1518270901ed58e9bdd438a4d39df57a1352e413ba673019fab51af78eb76fac9110199e68fe3a34ef136acf9303655a4d485d50ac51e3a77c41ee937a1a1b0d295d9f834ca21cdb65a68e84679292f2b54b837b6040685b75bd4cb011aad5d662ded583657cc3e8bab9524118f6029d4d426e3dafdd2306018dba37c02a7b9a89d8400897c0491/1080/index.m3u8');
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        console.log("HLS.js is working and the video is loaded.");
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = 'https://f4.megacdn.co:2228/v3-hls-playback/f5ae82f5a9e6c23a9b8e0889781acb3106044fa553337ca390c42f27aa58795888aa5b73746c37ae720dc844d0fa0dea98077ab327f88a5eb1518270901ed58e9bdd438a4d39df57a1352e413ba673019fab51af78eb76fac9110199e68fe3a34ef136acf9303655a4d485d50ac51e3a77c41ee937a1a1b0d295d9f834ca21cdb65a68e84679292f2b54b837b6040685b75bd4cb011aad5d662ded583657cc3e8bab9524118f6029d4d426e3dafdd2306018dba37c02a7b9a89d8400897c0491/1080/index.m3u8';
+    }
+  </script>
 </body>
 </html>
