@@ -10,12 +10,27 @@
     a { display: inline-block; margin-top: 30px; padding: 10px 20px; background: #c00; color: #fff; text-decoration: none; border-radius: 8px; }
     a:hover { background: #900; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
   <h1>Episode 4: Sic Semper Systema</h1>
-  <video controls autoplay>
+  <video id="video" controls autoplay>
     <source src="https://f4.megacdn.co:2228/v3-hls-playback/0a8e49913de6ce9293c0ab8b2d6ed4c8e2659b99e83461b3c494378c308bb3efcb3807ba2f388db4544678a02e830fcfa1450c995a31f58c66056fbe80268457ebbef85ff083d0d4d60284a16a105a86f6164d24e8d5cdd79a9c91304eab97c2b3f54a3b9994ff431f77dded174a6b6baa73471552b23bfcab41cb22531db75ae5334b181084dd95d746b12cd84e8160ed81f3445e1f99e8ae41e43068e56ee061a2e8b6e35a7e2704ff2fb728c2724b9a19c215771ac819d96b75a872e41991/1080/index.m3u8" type="application/x-mpegURL">
   </video>
   <br><a href="index.html">← Back to Episodes</a>
+
+  <script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource('https://f4.megacdn.co:2228/v3-hls-playback/0a8e49913de6ce9293c0ab8b2d6ed4c8e2659b99e83461b3c494378c308bb3efcb3807ba2f388db4544678a02e830fcfa1450c995a31f58c66056fbe80268457ebbef85ff083d0d4d60284a16a105a86f6164d24e8d5cdd79a9c91304eab97c2b3f54a3b9994ff431f77dded174a6b6baa73471552b23bfcab41cb22531db75ae5334b181084dd95d746b12cd84e8160ed81f3445e1f99e8ae41e43068e56ee061a2e8b6e35a7e2704ff2fb728c2724b9a19c215771ac819d96b75a872e41991/1080/index.m3u8');
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        console.log("HLS.js is working and the video is loaded.");
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = 'https://f4.megacdn.co:2228/v3-hls-playback/0a8e49913de6ce9293c0ab8b2d6ed4c8e2659b99e83461b3c494378c308bb3efcb3807ba2f388db4544678a02e830fcfa1450c995a31f58c66056fbe80268457ebbef85ff083d0d4d60284a16a105a86f6164d24e8d5cdd79a9c91304eab97c2b3f54a3b9994ff431f77dded174a6b6baa73471552b23bfcab41cb22531db75ae5334b181084dd95d746b12cd84e8160ed81f3445e1f99e8ae41e43068e56ee061a2e8b6e35a7e2704ff2fb728c2724b9a19c215771ac819d96b75a872e41991/1080/index.m3u8';
+    }
+  </script>
 </body>
 </html>
